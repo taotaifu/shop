@@ -24,27 +24,23 @@
                 <li class="active">
                     <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="true"><i class="mdi mdi-gauge"></i><span class="hide-menu">商城系统 </span></a>
                     <ul aria-expanded="true" class="collapse">
-                        <li><a href="index.html">栏目管理</a></li>
-                        <li><a href="index.html">商品管理</a></li>
+                        <li><a href="{{route ('admin.category.index')}}">栏目管理</a></li>
+                        <li><a href="{{route ('admin.good.index')}}">商品管理</a></li>
                     </ul>
                 </li>
-                <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-laptop-windows"></i><span class="hide-menu">Template Demos</span></a>
+                <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-laptop-windows"></i><span class="hide-menu">后台配置</span></a>
                     <ul aria-expanded="false" class="collapse">
-                        <li><a href="../minisidebar/index.html">Minisidebar</a></li>
-                        <li><a href="../horizontal/index2.html">Horizontal</a></li>
-                        <li><a href="../dark/index3.html">Dark Version</a></li>
-                        <li><a href="../material-rtl/index4.html">RTL Version</a></li>
-                        <li><a href="javascript:angular">Anuglar-CLI Starter kit</a></li>
+                        <li><a href="{{route ('admin.config.edit',['name'=>'base'])}}">基本配置</a></li>
+                        <li><a href="{{route ('admin.config.edit',['name'=>'upload'])}}">上传配置</a></li>
+                        <li><a href="{{route ('admin.config.edit',['name'=>'mail'])}}">邮件配置</a></li>
+                        <li><a href="{{route ('admin.config.edit',['name'=>'search'])}}">搜索配置</a></li>
+                        <li><a href="{{route ('admin.config.edit',['name'=>'wechat'])}}">微信配置</a></li>
+                        <li><a href="{{route ('admin.config.edit',['name'=>'code'])}}">验证码配置</a></li>
                     </ul>
                 </li>
-                <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-bullseye"></i><span class="hide-menu">Apps</span></a>
+                <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-bullseye"></i><span class="hide-menu">轮播图管理</span></a>
                     <ul aria-expanded="false" class="collapse">
-                        <li><a href="app-calendar.html">Calendar</a></li>
-                        <li><a href="app-chat.html">Chat app</a></li>
-                        <li><a href="app-ticket.html">Support Ticket</a></li>
-                        <li><a href="app-contact.html">Contact / Employee</a></li>
-                        <li><a href="app-contact2.html">Contact Grid</a></li>
-                        <li><a href="app-contact-detail.html">Contact Detail</a></li>
+                        <li><a href="{{route ('shower.figure.index')}}">轮播图配置</a></li>
                     </ul>
                 </li>
                 <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-email"></i><span class="hide-menu">Inbox</span></a>

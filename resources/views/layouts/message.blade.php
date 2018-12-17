@@ -32,3 +32,23 @@
         });
     </script>
 @endif
+
+
+
+{{--layer 弹出层--}}
+{{--http://layer.layui.com/--}}
+{{--成功提示--}}
+<script src="{{asset('org/layer/layer.js')}}"></script>
+@if (session()->has('layer_success'))
+    <script>
+        layer.msg("{{session()->get('layer_success')}}", {icon: 6});
+    </script>
+@endif
+{{--成功提示--}}
+@if (session()->has('layer_danger'))
+    <script>
+        layer.msg("{{session()->get('layer_danger')}}", function(){
+//关闭后的操作
+        });
+    </script>
+@endif
