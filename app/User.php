@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Address;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -32,6 +33,11 @@ class User extends Authenticatable
     public function notifications()
     {
         return $this->morphMany(DatabaseNotification::class, 'notifiable')->orderBy('read_at', 'asc')->orderBy('created_at', 'desc');
+    }
+     //关联地址
+    public function address(){
+
+        return $this->hasMany(Address::class);
     }
 
 }

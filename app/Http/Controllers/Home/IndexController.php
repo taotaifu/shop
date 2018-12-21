@@ -36,4 +36,10 @@ class IndexController extends CommonController
         //dd ($oneFloor);
         return view ( 'home.index.index' , compact ( 'categoryData' , 'latestGood' , 'oneFloor' , 'figures' ) );
     }
+
+    public function qqBack(){
+
+         echo 111;
+        //return view ('home.index.index');
+    }
 }

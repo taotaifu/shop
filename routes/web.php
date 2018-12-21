@@ -24,22 +24,38 @@ Route::group ( [ 'prefix' => 'home' , 'namespace' => 'Home' , 'as' => 'home.' ] 
     //用户管理
     Route::resource('user','UserController');
     //登录
-    Route::get ( '/login' , 'UserController@login' )->name ( 'login' );
+    Route::get ( 'login' , 'LoginController@index' )->name ( 'login' );
     //接收登录
-    Route::post ( '/login' , 'UserController@loginForm' )->name ( 'login' );
+    Route::post ( 'login' , 'LoginController@login' )->name ( 'login' );
     //注册
-    Route::get ( '/register' , 'UserController@register' )->name ( 'register' );
+    Route::get ( 'register' , 'LoginController@register' )->name ( 'register' );
     //接收注册
-    Route::post ( '/register' , 'UserController@store' )->name ( 'register' );
+    Route::post ( 'register' , 'LoginController@store' )->name ( 'register' );
     //密码重置
-    Route::get ( '/password_reset' , 'UserController@passwordReset' )->name ( 'password_reset' );
+    Route::get ( 'reset_password/{token}' , 'UserController@resetPasswordView' )->name ( 'reset_password' );
     //接收密码重置
-    Route::post ( '/password_reset' , 'UserController@passwordResetForm' )->name ( 'password_reset' );
+    Route::post ( 'reset_password/{token}' , 'UserController@resetPassword' )->name ( 'reset_password_post');
     //退出
-    Route::get ( '/logout' , 'UserController@logout' )->name ( 'logout' );
+    Route::get ( 'logout' , 'LoginController@logout' )->name ( 'logout' );
+    //忘记密码页面
+    Route::get ( 'forget_password' , 'UserController@forgetPasswordView' )->name ( 'forget_password' );
+    Route::post ( 'forget_password' , 'UserController@forgetPassword' )->name ( 'forget_password' );
     //购物车
     Route::resource('cart','CartController');
-
+    //结算车
+    Route::resource('settlement','SettlementController');
+    //用户收货地址管理
+    Route::resource('address','AddressController');
+    //支付页面
+     Route::get('pay','PayController@index')->name('pay');
+    //微信支付回调通知
+    Route::any('notify','PayController@notify')->name('notify');
+    //检测订单是否支付
+    Route::post('check_order_status','PayController@checkOrderStatus')->name('check_order_status');
+    //qq 回调地址
+    Route::get('qq_back','IndexController@qqBack')->name('aa_back');
+    //个人中心
+    Route::resource('personal_center','PersonalCenterController');
 
 } );
 

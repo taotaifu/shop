@@ -23,9 +23,9 @@ class LoginController extends Controller{
       return redirect ()->back ()->with ('success','用户名/密码不正确');
   }
 
-  //提出登录
+  //退出登录
     public  function logout(){
-        Auth::guard ('admin')->logout();
+        \Auth::guard ('admin')->logout();
         return redirect ()->route ('admin.login');
     }
 }

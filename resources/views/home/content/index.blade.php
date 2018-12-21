@@ -130,15 +130,15 @@
                     <a href="javascript:;" onclick="reduceTotal(this)" class="minus j-gACbtn">-</a>
                 </div>
                 <div class="nobar" style="margin-top: 30px">
-                    <div class="boy">
+                    {{--<div class="boy">--}}
                         @auth()
                             <a href="javascript:;" class="btn-product btn-addcart">立即购买</a>
-                            <a href="javascript:;" onclick="addClass(this)" class="box btn-product">加入购物车</a>
+                            <a href="jvascript:;" onclick="addClass(this)" class="hd-box btn-product">加入购物车</a>
                             @else
                             <a href="javascript:;" class="btn-product btn-addcart">立即购买</a>
                             <a href="{{route('home.login')}}"class="  btn-product">加入购物车</a>
                         @endauth
-                    </div>
+                    {{--</div>--}}
                 </div>
             </div>
             <div class="prd-tips wenxintishi_wrap clearfix">
@@ -1128,17 +1128,18 @@
 @push('css')
     <link rel="stylesheet" type="text/css" href="{{asset ('org/home')}}/css/index.css"/>
     <style>
-        .disabled {
+        .hd-box {
             background: #cccccc !important;
+            border: 1px solid #cccccc!important;
+            cursor: default;
         }
 
-        .disabled a:hover {
-            background: #cccccc !important;
-        }
+        /*.disabled a:hover {*/
+            /*background: #cccccc !important;*/
+        /*}*/
     </style>
 @endpush
 @push('js')
-
     <script src="{{asset ('org/layer/layer.js')}}"></script>
     <script>
         // function addt(obj) {
@@ -1147,7 +1148,7 @@
         function addClass(obj) {
             // alert(1)
             // console.log(obj);
-            if($(obj).hasClass('box')){
+            if($(obj).hasClass('hd-box')){
                 // alert(1);
                 layer.msg('请先选择规格');
                 return;
@@ -1167,7 +1168,7 @@
                         if(response.code ==0 ){
                             location.href = "{{route('home.login')}}"
                         }else{
-
+                            location.href = "{{route('home.cart.index')}}"
                         }
                     },
                     error:function (error) {
@@ -1186,7 +1187,7 @@
                 // console.log(res)
                 $(obj).addClass('select').siblings("a").removeClass('select')
                 $('#cr_total').html(res.total);
-                $('.btn-product').removeClass('box')
+                $('.btn-product').removeClass('hd-box')
             }, 'json')
         }
 

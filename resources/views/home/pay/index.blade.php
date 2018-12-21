@@ -1,22 +1,16 @@
 <!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <html>
 <head>
     <meta charset="utf-8">
-    <title>默书彤商城</title>
+    <title>WangID通城——加入购物车</title>
+
     <link rel="stylesheet" type="text/css" href="{{asset ('org/home')}}/css/index.css">
     <link rel="stylesheet" type="text/css" href="{{asset ('org/home')}}/css/ziy.css">
-    <link rel="stylesheet" type="text/css" href="{{asset ('org/home')}}/css/zxx.lib.css">
-    <link rel="stylesheet" href="{{asset ('org/layui/css/layui.css')}}">
-    <script src="{{asset ('org/home')}}/js/jquery-1.11.3.min.js"></script>
-    <script src="{{asset ('org/home')}}/js/index.js"></script>
-
-@stack('css')
-@stack('js')
-<!-- <script type="text/javascript" src="js/jquery1.42.min.js"></script> -->
-    {{--//   <script type="text/javascript" src="{{asset ('org/home')}}/js/jquery-1.11.1.min.js"></script>--}}
+    <script type="text/javascript" src="{{asset ('org/home')}}/js/jquery-1.11.1.min.js"></script>
     <script type="text/javascript" src="{{asset ('org/home')}}/js/jquery.SuperSlide.2.1.1.source.js"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    {{--<link href="https://cdn.bootcss.com/twitter-bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">--}}
     <script>
         $(function () {
             $.ajaxSetup({
@@ -28,47 +22,11 @@
     </script>
 </head>
 <body>
-<!--侧边-->
-<div class="jdm-toolbar-wrap J-wrap">
-    <div class="jdm-toolbar J-toolbar">
-        <div class="jdm-toolbar-panels J-panel"></div>
-        <div class="jdm-toolbar-tabs J-tab">
-            <div data-type="bar" class="J-trigger jdm-toolbar-tab jdm-tbar-tab-ger">
-                <i class="tab-ico"></i>
-                <em class="tab-text">购物车</em>
-            </div>
-            <div data-type="bar" class="J-trigger jdm-toolbar-tab jdm-tbar-tab-cart">
-                <i class="tab-ico"></i>
-                <em class="tab-text">购物车</em>
-            </div>
-            <div data-type="bar" clstag="h|keycount|cebianlan_h_follow|btn" class="J-trigger jdm-toolbar-tab jdm-tbar-tab-follow" data-name="follow" data-login="true">
-                <i class="tab-ico"></i>
-                <em class="tab-text">我的关注</em>
-            </div>
-        </div>
-        <div class="J-trigger jdm-toolbar-tab jdm-tbar-tab-message" data-name="message"><a target="_blank" href="#">
-                <i class="tab-ico"></i>
-                <em class="tab-text">我的消息
-                </em></a>
-        </div>
-    </div>
-    <div class="jdm-toolbar-footer">
-        <div data-type="link" id="#top" class="J-trigger jdm-toolbar-tab jdm-tbar-tab-top">
-            <a href="#" clstag="h|keycount|cebianlan_h|top">
-                <i class="tab-ico"></i>
-                <em class="tab-text">顶部</em>
-            </a>
-        </div>
-    </div>
-    <div class="jdm-toolbar-mini"></div>
-    <div id="J-toolbar-load-hook" clstag="h|keycount|cebianlan_h|load"></div>
-</div>
-
 
 <!--头部-->
 <div id="header">
     <div class="header-box">
-        <h3 class="huany" style="font-size: 10px">购物商城欢迎您,祝您购物愉快！</h3>
+        <h3 class="huany">WangID本地购物商城欢迎您的到来！</h3>
         <ul class="header-left">
             <li class="bj">
                 <a class="dib" href="#">贵阳市</a>
@@ -82,44 +40,16 @@
             </li>
         </ul>
         <ul class="header-right">
-            @auth()
-            <li class="denglu dengl_hou">
-                <div>
-                    <a class="red" href="dengl.html">{{auth()->user()->name}}用户</a>
-                    <i class="icon_plus_nickname"></i>
-                    <i class="ci-leftll">
-                        <s class="jt">◇</s>
-                    </i>
-                </div>
-                <div class="dengl_hou_xial_k">
-                    <div class="zuid_xiao_toux">
-                        <a href="#"><img src="{{asset ('org/home')}}/images/toux.png"></a>
-                    </div>
-                    <div class="huiy_dengj">
-                        <a class="tuic_" href="{{route('home.logout')}}">退出</a>
-                    </div>
-                    <div class="toub_zil_daoh">
-                        <a href="">待处理订单</a>
-                        <a href="#">我的收藏</a>
-                        <a href="{{route ('home.personal_center.index')}}">个人中心</a>
-                        <a href="{{route ('admin.index')}}">我的后台</a>
-                    </div>
-                </div>
-            </li>
+            <li class="denglu">Hi~<a class="red" href="dengl.html">请登录!</a> <a href="zhuc.html">[免费注册]</a></li>
             <li class="shu"></li>
             <li class="denglu"><a class="ing_ps" href="#">我的收藏</a></li>
-            @else
-                <li class="denglu">
-                    Hi~<a class="red" href="{{route('home.login')}}">请登录!</a>
-                    <a href="{{route ('home.user.create')}}">[免费注册]</a>
-                </li>
-            @endauth
+            <li class="shu"></li>
         </ul>
     </div>
 </div>
 <!--搜索栏-->
 <div class="toub_beij">
-    <div class="logo"><a href=""><img src="{{asset ('org/home')}}/images/logo.png"></a></div>
+    <div class="logo"><a href="./"><img src="{{asset ('org/home')}}/images/logo.png"></a></div>
     <div class="search">
         <input type="text" value="家电一折抢" class="text" id="textt">
         <button class="button">搜索</button>
@@ -131,11 +61,11 @@
             <i class="gw-count">0</i>
             <i class="sd"></i>
         </div>
-        <a href="{{route ('home.cart.index')}}" style="font-size: 15px">我的购物车</a>
+        <a href="gouw_che.html">我的购物车</a>
         <div class="dorpdown-layer">
             <ul>
                 <li class="meiyou">
-                    <img src="{{asset ('org/home')}}/images/settleup-nogoods.png">
+                    <img src="{{asset('org/home')}}/images/settleup-nogoods.png">
                     <span>购物车中还没有商品，赶紧选购吧！</span>
                 </li>
             </ul>
@@ -153,7 +83,79 @@
     </div>
 </div>
 
-@yield('content')
+
+<!--轮播图上方导航栏  一栏-->
+<div id="navv" class="navv_ziy">
+    <div class="focus">
+        <div class="focus-a">
+            <div class="fouc-font fouc_font_ziy">
+                <a href="#">全部商品分类</a>
+            </div>
+        </div>
+        <div class="focus-b">
+            <ul>
+                <li><a href="#">商城首页</a></li>
+                <li><a href="#">本地生活</a></li>
+                <li><a href="#">团购专区</a></li>
+                <li><a href="#">积分商城 </a></li>
+                <li><a href="#">分销系统</a></li>
+                <li><a href="#">办公耗材</a></li>
+                <li><a href="#">饰品礼品</a></li>
+                <li><a href="#">休闲娱乐</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    (function () {
+        var $subblock = $(".subpage"), $head = $subblock.find('h2'), $ul = $("#proinfo"), $lis = $ul.find("li"), inter = false;
+        $head.mouseover(function (e) {
+            e.stopPropagation();
+            if (!inter) {
+                $ul.show();
+            } else {
+                $ul.hide();
+            }
+            inter = !inter;
+        });
+
+        $ul.mouseover(function (event) {
+            event.stopPropagation();
+        });
+
+        $(document).mouseover(function () {
+            $ul.hide();
+            inter = !inter;
+        });
+    })();
+</script>
+<!--加入购物车-->
+<div class="beij_center">
+    <div class="jiar_gouw_c_beij">
+        <div class="msg"><i class="c_i_img"></i>恭喜您的商品已购买成功！</div>
+        <div class="shangp_jr">
+            <div class="jr_zuo">
+                <div class="jr_biaot">
+                    <p>订单号:{{$settlements['number']}}</p>
+                    <p class="spandf">
+                        <span>总价:¥ {{$settlements['total_price']}}</span>
+                        <br>
+                        <span>总数量: {{$settlements['total_num']}}件</span>
+                    </p>
+                </div>
+            </div>
+            <div class="jr_you">
+                <a href="{{route ('home.cart.index')}}" class="jr_fanh">返回</a>
+                <a href="{{route ('home.cart.index')}}" class="jr_qv_gouw_che">继续购物<em class="jr_jiant"></em></a>
+            </div>
+        </div>
+    </div>
+    <div class="" style="display: block;text-align:center">
+        {{--<img src="{{asset ('org/images')}}/ewm.png" alt="">--}}
+        <img src="{{asset('org/php_sdk_v3.0.9/example')}}/qrcode.php?data=<?php echo urlencode($url2);?>" width="200" alt="">
+    </div>
+</div>
+
 <!--底部-->
 <div class="dib_beij">
     <div class="dib_jvz_beij">
@@ -180,7 +182,7 @@
                     <li><a href="#">货到付款</a></li>
                     <li><a href="#">在线支付</a></li>
                     <li><a href="#">门店支付</a></li>
-                    <li><a href="#">账户安全</a></li>
+                    <li><a href="zhangh_anq.html">账户安全</a></li>
                 </ul>
             </div>
             <div class="lieb_daoh">
@@ -237,29 +239,24 @@
     </div>
 </div>
 
-@include('layouts.message')
-<script>
-    function del(obj) {
-        swal("确定删除吗？", {
-            buttons: {
-                cancel: "取消",
-                catch: {
-                    text: "确定",
-                    value: "catch",
-                },
-            },
-        })
-            .then((value) => {
-                switch (value) {
-                    case "catch":
-                        $(obj).next('form').submit();
-                        break;
-                    default:
-                }
-            });
-    }
-</script>
-@stack('js')
 </body>
 </html>
+<script src="{{asset ('org/layer/layer.js')}}"></script>
+<script src="https://cdn.bootcss.com/vue/2.5.21/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/axios/0.19.0-beta.1/axios.min.js"></script>
 
+<script>
+    $(function () {
+        var number = "{{$settlements['number']}}";
+        var id = "{{$settlements['id']}}";
+        setInterval(function () {
+            $.post("{{route('home.check_order_status')}}",{number:number},function (res) {
+                if(res.code == 1){
+                    location.href = '{{route('home.personal_center.index')}}';
+                }else {
+                    {{--location.href = '{{route('home.settlement.index')}}';--}}
+                }
+            },'json')
+        },1000)
+    })
+</script>
