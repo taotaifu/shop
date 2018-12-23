@@ -42,9 +42,9 @@ class SettlementController extends CommonController
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(settlement $settlement)
     {
-        //
+       //
     }
 
 
@@ -140,6 +140,7 @@ class SettlementController extends CommonController
      */
     public function destroy(Settlement $settlement)
     {
-        //
+
+       //
     }
 }

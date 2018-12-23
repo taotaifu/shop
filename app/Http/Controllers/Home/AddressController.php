@@ -3,19 +3,23 @@
 namespace App\Http\Controllers\Home;
 
 use App\Models\Address;
+use App\Models\Cart;
+use App\Models\Settlement;
 use Illuminate\Http\Request;
 
 class AddressController extends CommonController
 {
 
-    public function index ()
+    public function index (Request $request)
     {
         //dd (1);
         //获取所有的地址
         $addresses = Address::get ();
-
+        //获取当前登录用户的全部订单数据
+        //$_carts = Cart::where('user_id',auth()->id())->get();
+        //dd($_carts);
         //dd ($addresses);
-        return view ( 'home.address.index' , compact ( 'addresses' ) );
+        return view ( 'home.address.index' , compact ( 'addresses','settlements' ) );
 
     }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Home;
 
 use App\Models\OrderDetail;
+use App\Models\PersonalCenter;
 use App\Models\Settlement;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -32,9 +33,17 @@ class PersonalCenterController extends CommonController
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Settlement $settlement)
     {
-        //
+        //获取当前登录用户的全部订单数据
+        $settlement = Settlement::where('user_id',auth()->id())->paginate(10);
+        //dd ($settlement->toArray());
+        //$orderDetail=OrderDetail::all ();
+        //dd ($orderDetail);
+        //dd ($settlement->orderDetail);
+        //$res = ($settlement->find('64'));
+        //dd($res->orderDetail);
+        return view ('home.personal_center.create',compact ('settlement'));
     }
 
     /**
@@ -88,8 +97,9 @@ class PersonalCenterController extends CommonController
      * @param  \App\Models\PersonalCenter  $personalCenter
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PersonalCenter $personalCenter)
+    public function destroy(PersonalCenter $personalCenter,Settlement $settlement)
     {
-        //
+        $settlement->orderDetail->delete();
+       return redirect ()->route ('home.personal_center.index')->with ('success','删除成功');
     }
 }

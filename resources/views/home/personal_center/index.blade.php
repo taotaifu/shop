@@ -71,76 +71,87 @@
                 </tr>
                 </thead>
                 @foreach($settlements as $settlement)
-                <tbody>
-                <tr class="sep-row">
-                    <td colspan="4"></td>
-                </tr>
-                <tr class="tr-th">
+                    <tbody>
+                    <tr class="sep-row">
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr class="tr-th">
 
                         <td colspan="5">
                             <span class="gap"></span>
                             <span class="dealtime span_30" title="">{{$settlement->created_at->format('Y-m-d H:m:s')}}</span>
                             <span class="number span_30">订单号：<a href="#" target="_blank">{{$settlement['number']}}</a></span>
-                            @foreach($settlement->orderDetail() as $value)
-                            <span class="span_30"><a href="#">{{$value['title']}}旗舰店</a></span>
-                            @endforeach
-                            <span class="wod_sc_delete_beij span_30"><a href="#" class="wod_dingd_delete"></a></span>
+                            <span class="wod_sc_delete_beij span_30"><a href="" class="wod_dingd_delete"></a></span>
                         </td>
 
-                </tr>
-                <tr class="tr-bd">
-                    <td rowspan="1">
-                        <div class="goods-item">
-                            <div class="p-img">
-                                <a target="_blank" href="#">
-                                    <img src="{{$settlement['pic']}}" alt="">
-                                </a>
-                            </div>
-                            <div class="p-msg">
-                                <div class="p-name">
-                                    <a target="_blank" href="#">{{$settlement['name']}} {{$settlement['specs']}}</a>
-                                    <p class="yiwanc_hui"><a href="#">申请售后</a></p>
+                    </tr>
+                    <tr class="tr-bd">
+
+                        <td rowspan="1">
+                            @foreach($settlement->orderDetail as $v)
+                                <div class="goods-item">
+                                    <div class="p-img">
+                                        <a target="_blank" href="#">
+                                            <img src="{{$v['pic']}}" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="p-msg">
+                                        <div class="p-name">
+                                            <a target="_blank" href="#">{{$v['title']}} {{$v['spec']}}</a>
+                                            <p class="yiwanc_hui"><a href="#">申请售后</a></p>
+                                        </div>
+                                    </div>
                                 </div>
+                            @endforeach
+                            <div class="goods-number">x{{$settlement['total_num']}}件</div>
+                        </td>
+                        <td rowspan="1">
+                            <div class="zhif_jine">
+                                <p>总额￥{{$settlement['total_price']}}</p>
+                                <span>在线支付</span>
                             </div>
-                        </div>
-                        <div class="goods-number">x{{$settlement['total_num']}}</div>
-                    </td>
-                    <td rowspan="1">
-                        <div class="zhif_jine">
-                            <p>总额￥{{$settlement['total_price']}}</p>
-                            <span>在线支付</span>
-                        </div>
-                    </td>
-                    <td rowspan="1">
-                        <div class="operate">
-                            @if($settlement['status'] ==1)
-                            <p class="yiwanc_hui">未支付</p>
-                            @elseif($settlement['status'] ==2)
-                                <p class="yiwanc_hui">已支付</p>
-                            @elseif($settlement['status'] ==3)
-                                待发货
-                            @elseif($settlement['status'] ==4)
-                                已发货
-                            @elseif($settlement['status'] ==5)
-                                交易已完成
-                            @endif
-                            <a href="#" target="_blank" class="a-link">订单详情</a><br>
-                        </div>
-                    </td>
-                    <td rowspan="1">
-                        <div class="txt_ren">
-                            <span>{{auth ()->user ()->name}}</span>
-                            <p class="ren_tub"></p>
-                        </div>
-                    </td>
-                    <td rowspan="1">
-                        <div class="operate">
-                            <a href="#" target="_blank" class="a-link">评价</a>丨<a href="#" target="_blank" class="a-link">晒单</a><br>
-                            <a href="#" target="_blank" class="btn-def">立即购买</a>
-                        </div>
-                    </td>
-                </tr>
-                </tbody>
+                        </td>
+                        <td rowspan="1">
+                            <div class="operate">
+                                <div>订单状态：</div>
+                                @if($settlement['status'] ==1)
+                                    <p class="yiwanc_hui">未支付</p>
+                                @elseif($settlement['status'] ==2)
+                                    <p class="yiwanc_hui">已支付</p>
+                                @elseif($settlement['status'] ==3)
+                                    待发货
+                                @elseif($settlement['status'] ==4)
+                                    已发货
+                                @elseif($settlement['status'] ==5)
+                                    交易已完成
+                                @endif
+                                <a href="{{route ('home.personal_center.create')}}" target="_blank" class="a-link">订单详情</a><br>
+                            </div>
+                        </td>
+                        <td rowspan="1">
+                            <div class="txt_ren">
+                                <span>{{auth ()->user ()->name}}</span>
+                                <p class="ren_tub"></p>
+                            </div>
+                        </td>
+                        <td rowspan="1">
+                            <div class="operate">
+                                <a href="#" target="_blank" class="a-link">评价</a>丨<a href="#" target="_blank" class="a-link">晒单</a><br>
+                                {{--订单状态1未支付,2已支付,3待发货,4已发货,5交易已完成--}}
+                                @if($settlement['status'] ==1)
+                                 <a href="{{route('home.pay',['number'=>$settlement['number']])}}" target="_blank" title="去支付" class="btn-def">去支付</a>
+                                @elseif($settlement['status'] ==2)
+                                 <a href="javascript:;" target="_blank" title="已支付，未发货" class="btn-def">已支付,未发货</a>
+                                @elseif($settlement['status'] ==3)
+                                <a href="javascript:;" target="_blank" title="待发货" class="btn-def">待发货</a>
+                                @elseif($settlement['status'] ==4)
+                                <a href="javascript:;" target="_blank" title="确认收货" class="btn-def">确认收货</a>
+                                @elseif($settlement['status'] ==5)
+                                @endif
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
                 @endforeach
             </table>
 
@@ -151,5 +162,26 @@
             </div>
         </div>
     </div>
-
+@include('layouts.message')
+    <script>
+        function del(obj) {
+            swal("确定删除吗？", {
+                buttons: {
+                    cancel: "取消",
+                    catch: {
+                        text: "确定",
+                        value: "catch",
+                    },
+                },
+            })
+                .then((value) => {
+                    switch (value) {
+                        case "catch":
+                            $(obj).next('form').submit();
+                            break;
+                        default:
+                    }
+                });
+        }
+    </script>
 @endsection

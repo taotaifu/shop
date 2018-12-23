@@ -252,9 +252,7 @@
         setInterval(function () {
             $.post("{{route('home.check_order_status')}}",{number:number},function (res) {
                 if(res.code == 1){
-                    location.href = '{{route('home.personal_center.index')}}';
-                }else {
-                    {{--location.href = '{{route('home.settlement.index')}}';--}}
+                    location.href = "/home/order/"+id;
                 }
             },'json')
         },1000)

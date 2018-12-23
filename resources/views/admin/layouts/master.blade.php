@@ -8,9 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <!-- Favicon icon -->
 
+    <!-- Favicon icon -->
+    <link rel="stylesheet" href="/static/build/layui.css" media="all">
     <link rel="icon" type="image/png" sizes="16x16" href="{{asset('org/assets/')}}/images/favicon.png">
     <title>{{hd_config('base.title')}}</title>
     <!-- Bootstrap Core CSS -->
@@ -28,6 +28,7 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script src="{{asset('org/assets/')}}/plugins/jquery/jquery.min.js"></script>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <script>
         $(function (){
         $.ajaxSetup({

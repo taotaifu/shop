@@ -69,12 +69,9 @@
     <!--轮播图-->
     <div id="lunbo">
         <ul id="one">
-            {{--@foreach($figures as $figure)--}}
-            <li><a href=""><img src="{{asset ('org/images')}}/banner.jpg"></a></li>
-            <li><a href=""><img src="{{asset ('org/images')}}/banner1.jpg"></a></li>
-            <li><a href=""><img src="{{asset ('org/images')}}/banner.jpg"></a></li>
-            <li><a href=""><img src="{{asset ('org/images')}}/banner1.jpg"></a></li>
-            {{--@endforeach--}}
+            @foreach($figures as $figure)
+            <li><a href=""><img src="{{$figure['icon']}}"></a></li>
+            @endforeach
         </ul>
         <ul id="two">
             <li class="on">1</li>
@@ -88,9 +85,6 @@
             <a href="javascript:void(0)" id="right">></a>
         </div>
     </div>
-
-
-
     <!--内容一开始了-->
     <!--快速通道栏-->
 

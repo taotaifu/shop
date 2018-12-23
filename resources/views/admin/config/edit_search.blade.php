@@ -25,7 +25,8 @@
                     <div class="card-body">
 
                         <form method="post" action="http://laravel.taotaifu.cn/admin/config/update/search">
-                            <input type="hidden" name="_token" value="44PtKN9R2AWOjrKbZTNsF8zIdPpaMc18IObAfHqt">                            <div class="form-group">
+                            <input type="hidden" name="_token" value="44PtKN9R2AWOjrKbZTNsF8zIdPpaMc18IObAfHqt">
+                            <div class="form-group">
                                 <label for="exampleInputEmail1">ALGOLIA_APP_ID</label>
                                 <input type="text" name="ALGOLIA_APP_ID" value="" class="form-control" id="exampleInputEmail1" placeholder="">
                             </div>

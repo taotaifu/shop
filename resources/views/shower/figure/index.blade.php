@@ -42,17 +42,18 @@
                 <table class="table table-sm table-nowrap card-table">
                     <thead>
                     <tr>
-                        <th>编号</th>
+                        <th style="margin-left: 20px;display: block;float: left">编号</th>
                         <th>轮播图名字</th>
                         <th>图片</th>
+                        <th>操作</th>
                     </tr>
                     </thead>
                     <tbody class="list">
                     @foreach($figures as $figure)
                         <tr>
-                            <td>{{$figure['id']}}</td>
-                            <td>{{$figure['name']}}</td>
-                            <td><img width="80" src="{{$figure['icon']}}"></td>
+                            <td style="margin-left: 20px;display: block;float: left">{{$figure['id']}}</td>
+                            <td style="height: 50px">{{$figure['name']}}</td>
+                            <td><img width="80" height="50px" src="{{$figure['icon']}}"></td>
 
                             <td>
                                 <div class="btn-group btn-group-sm" role="group" aria-label="First group">

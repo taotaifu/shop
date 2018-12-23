@@ -14,7 +14,6 @@ class PayController extends CommonController
     {
 
         //根据订单号获取订单数据
-
         $settlements = Settlement::where ( 'number' , $request->query ( 'number' ) )->first ();
         //dd ($settlements);
         if ( $settlements[ 'status' ] != 1 ) {

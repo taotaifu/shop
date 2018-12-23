@@ -83,31 +83,31 @@
         </ul>
         <ul class="header-right">
             @auth()
-            <li class="denglu dengl_hou">
-                <div>
-                    <a class="red" href="dengl.html">{{auth()->user()->name}}用户</a>
-                    <i class="icon_plus_nickname"></i>
-                    <i class="ci-leftll">
-                        <s class="jt">◇</s>
-                    </i>
-                </div>
-                <div class="dengl_hou_xial_k">
-                    <div class="zuid_xiao_toux">
-                        <a href="#"><img src="{{asset ('org/home')}}/images/toux.png"></a>
+                <li class="denglu dengl_hou">
+                    <div>
+                        <a class="red" href="dengl.html">{{auth()->user()->name}}用户</a>
+                        <i class="icon_plus_nickname"></i>
+                        <i class="ci-leftll">
+                            <s class="jt">◇</s>
+                        </i>
                     </div>
-                    <div class="huiy_dengj">
-                        <a class="tuic_" href="{{route('home.logout')}}">退出</a>
+                    <div class="dengl_hou_xial_k">
+                        <div class="zuid_xiao_toux">
+                            <a href="#"><img src="{{auth ()->user ()->icon}}"></a>
+                        </div>
+                        <div class="huiy_dengj">
+                            <a class="tuic_" href="{{route('home.logout')}}">退出</a>
+                        </div>
+                        <div class="toub_zil_daoh">
+                            <a href="{{route ('home.personal_center.index')}}">我的订单</a>
+                            <a href="#">我的收藏</a>
+                            <a href="{{route ('home.material_center.index')}}">个人中心</a>
+                            <a href="{{route ('admin.index')}}">我的后台</a>
+                        </div>
                     </div>
-                    <div class="toub_zil_daoh">
-                        <a href="">待处理订单</a>
-                        <a href="#">我的收藏</a>
-                        <a href="{{route ('home.personal_center.index')}}">个人中心</a>
-                        <a href="{{route ('admin.index')}}">我的后台</a>
-                    </div>
-                </div>
-            </li>
-            <li class="shu"></li>
-            <li class="denglu"><a class="ing_ps" href="#">我的收藏</a></li>
+                </li>
+                <li class="shu"></li>
+                <li class="denglu"><a class="ing_ps" href="#">我的收藏</a></li>
             @else
                 <li class="denglu">
                     Hi~<a class="red" href="{{route('home.login')}}">请登录!</a>
@@ -120,36 +120,56 @@
 <!--搜索栏-->
 <div class="toub_beij">
     <div class="logo"><a href=""><img src="{{asset ('org/home')}}/images/logo.png"></a></div>
-    <div class="search">
-        <input type="text" value="家电一折抢" class="text" id="textt">
-        <button class="button">搜索</button>
+    <div class="search seach fl">
+        <form action="{{route('home.search')}}">
+            <input type="text" name="kwd" value="{{request()->query('kwd')}}" placeholder="照相机" class="seachtxt fl text" id="textt">
+            <button class="button">搜索</button>
+        </form>
     </div>
-    <div class="right">
+    <?php
+    $_carts = \App\Models\Cart::where ( 'user_id' , auth ()->id () )->get ();
+    ?>
+    <div class="settleup_2014 right">
         <i class="gw-left"></i>
         <i class="gw-right"></i>
-        <div class="sc">
-            <i class="gw-count">0</i>
+        <div class="cw_icon sc">
+            <i class="gw-count cw_icon">{{ $_carts->count()}}</i>
             <i class="sd"></i>
         </div>
         <a href="{{route ('home.cart.index')}}" style="font-size: 15px">我的购物车</a>
-        <div class="dorpdown-layer">
-            <ul>
-                <li class="meiyou">
-                    <img src="{{asset ('org/home')}}/images/settleup-nogoods.png">
-                    <span>购物车中还没有商品，赶紧选购吧！</span>
-                </li>
-            </ul>
-        </div>
+        @auth()
+            <div class="dorpdown-layer">
+                @foreach($_carts  as $value)
+                    <li class="meiyou">
+                        <div class="gouwc_tup">
+                            <a href="#"><img src="{{$value['pic']}}"></a>
+                        </div>
+                        <div class="gouwc_biaot">
+                            <a href="#" style="font-size: 10px">{{$value['title']}}</a>
+                        </div>
+                        <div class="gouwc_shanc">
+                            <span style="font-size: 10px">￥{{$value['price']}}</span>
+                            <a href="#" style="font-size: 10px" >删除</a>
+                        </div>
+                        @endforeach
+                    </li>
+            </div>
+        @else
+            <div class="dorpdown-layer">
+                <ul>
+                    <li class="meiyou">
+                        <img src="{{asset ('org/home')}}/images/settleup-nogoods.png">
+                        <span>购物车中还没有商品，<a href="{{route ('home.login')}}" style="color: red;font-size: 10px">请登录</a>赶紧选购吧！</span>
+                    </li>
+                </ul>
+            </div>
+        @endauth
     </div>
     <div class="hotwords">
         <a class="biaoti">热门搜索：</a>
-        <a href="#">新款连衣裙</a>
-        <a href="#">四件套</a>
-        <a href="#">潮流T恤</a>
-        <a href="#">时尚女鞋</a>
-        <a href="#">乐1</a>
-        <a href="#">特步女鞋</a>
-        <a href="#">威士忌</a>
+        @foreach($_keywords as $keyword)
+        <a href="{{route('home.search',['kwd'=>$keyword['kwd']])}}">{{$keyword['kwd']}}</a>
+        @endforeach
     </div>
 </div>
 

@@ -2,10 +2,15 @@
 
 namespace App\Models;
 
+use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Model;
+
 
 class Good extends Model
 {
+
+    use Searchable;
+
     protected $fillable=[ 'title','price','description','total','category_id','list_pic','pics','user_id','content'
 
     ];

@@ -102,10 +102,6 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="sl-ext">
-                        <a class="sl-e-more" style="visibility: visible;">更多<i></i></a>
-                        <a class="sl-e-multiple">多选<i></i></a>
-                    </div>
                 </div>
                 <div class="sl-wrap">
                     <div class="sl-key">
@@ -131,10 +127,6 @@
                                 </li>
                             </ul>
                         </div>
-                    </div>
-                    <div class="sl-ext">
-                        <a class="sl-e-more" style="visibility: visible;">更多<i></i></a>
-                        <a class="sl-e-multiple">多选<i></i></a>
                     </div>
                 </div>
                 <div id="yingc">

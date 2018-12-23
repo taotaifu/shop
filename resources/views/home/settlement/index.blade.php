@@ -115,6 +115,7 @@
                 <a href="{{route('home.address.index')}}" class="ftx-05 J_consignee_global">新增收货地址</a>
             </div>
         </div>
+
         <div class="hd-content jies_y_shouh_diz shiq_1">
             @if(count ($addresses)!=0)
                 @foreach($addresses as $address)
@@ -188,6 +189,7 @@
                 </div>
             </div>
             <div class="goods_list">
+
                 @foreach($settlements as $settlement)
                     <div class="goods_list_neik">
                         <h4 class="vendor_name_h">商家：{{$settlement['title']}}旗舰店</h4>

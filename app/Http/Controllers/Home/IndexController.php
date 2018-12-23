@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Home;
 use App\Models\Category;
 use App\Models\Figure;
 use App\Models\Good;
+use App\Models\Keyword;
 use Houdunwang\Arr\Arr;
+use Illuminate\Http\Request;
 
 class IndexController extends CommonController
 {
@@ -33,13 +35,37 @@ class IndexController extends CommonController
             'name' => '电子产品' ,
             'data' => Good::whereIn ( 'category_id' , $sonIds )->get ()
         ];
+
         //dd ($oneFloor);
         return view ( 'home.index.index' , compact ( 'categoryData' , 'latestGood' , 'oneFloor' , 'figures' ) );
     }
 
-    public function qqBack(){
 
-         echo 111;
+
+    public function search(Request $request)
+    {
+        //获取搜素词
+       $kwd=$request->query('kwd');
+       //在数据表中查找当前的关键词是否存在
+      $Keyword=Keyword::where('kwd',$kwd)->first();
+      //判断有没有关键词 有关键词就让搜索执行
+        if ($Keyword){
+            //如果已经存在 就让搜索执行一次
+            $Keyword->increment( 'click' );
+        }else{
+            //如果不存在 就创建一个关键词
+            Keyword::create( [ 'kwd'=>$kwd ] );
+        }
+
+        //在商品中查找关键词,然后列出商品进行分页
+        $goods=Good::search($kwd)->paginate(5);
+        //加载模板
+        return view ('home.index.search',compact ('kwd','goods'));
+    }
+    public function qqBack ()
+    {
+
+        echo 111;
         //return view ('home.index.index');
     }
 }

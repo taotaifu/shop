@@ -47,16 +47,18 @@
                                 <div class="col-12">
                                     <form method="post" action="{{route('shower.figure.store')}}">
                                         @csrf
-                                        <div class="card-body">
+                                        <div class="card-body" id="">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">轮播图名称</label>
                                                 <input type="text" name="name" class="form-control" value="{{old ('name')}}" id="exampleInputEmail1" placeholder="">
                                             </div>
                                             <label for="exampleInputEmail1">图片上传</label>
-                                            <div class="input-group mb-1">
+                                            <div class="input-group mb-1" style="height: 25px">
                                                 <input class="form-control" name='icon'>
                                                 <div class="input-group-append">
-                                                    <button onclick="upImagePc(this)" class="btn btn-secondary" type="button" style="height: 40px">单图上传</button>
+                                                    <button  hidden type="button" id="user_icon">
+                                                        <i class="layui-icon">上传图片</i>
+                                                    </button>
                                                 </div>
                                             </div>
                                             <div style="display: inline-block;position: relative;width:260px">
@@ -79,26 +81,39 @@
         {{--@{{ currentMenu }}--}}
     </div>
 @endsection
-@push('js')
-    <script>
-        require['hdjs', 'bootstrap'];
-        function upImagePc() {
-            require(['hdjs'], function (hdjs) {
-                var options = {
-                    multiple: false,//是否允许多图上传
-                    //data是向后台服务器提交的POST数据
-                    data: {name: '', year: 2099},
-                };
-                hdjs.image(function (images) {
-                    // alert(1);
-                    // 提交表单做头像修改
-                    $("[name='icon']").val(images[0]);
-                    $(".avatar-img").attr('src', images[0]);
-                    $('#imgIcon').submit();
-                }, options)
-            });
-        }
 
+@push('js')
+    <script src="{{asset('org/layui/layui.js')}}"></script>
+    <script>
+        layui.use(['upload', 'layedit'], function () {
+            var $ = layui.jquery
+                , upload = layui.upload;
+            //拖拽上传
+            // alert('1');
+            upload.render({
+                elem: '#user_icon'
+                , url: "{{route('util.upload')}}"
+                , accept: 'images' //指定允许上传时校验的文件类型，可选值有：images（图片）、file（所有文件）、video（视频）、audio（音频）
+                , acceptMime: "{{hd_config ('upload.upload_accept_mime','image/jpg, image/png,image/jpeg')}}"
+                , size: "{{hd_config ('upload.upload_size',20000000)}}" //最大允许上传的文件大小，单位 KB。不支持ie8/9
+                , exts: "{{hd_config ('upload.upload_type','jpg|png|gif|bmp|jpeg')}}"
+                //上传成功之后的回调
+                , done: function (res) {
+                    if (res.code == 0) {
+                        //$('#user_icon').html('<img src="' + res.data.src + '" alt="" width="50"><input type="hidden" name="list_pic" value="' + res.data.src + '">')
+                        $('#user_icon').attr('src', res.data.src);
+                        $('input[name=icon]').val(res.data.src);
+                        //触发表单提交
+                        $('#editCicon').submit();
+                    } else {
+                        layer.msg(res.msg, {icon: 2}, function () {
+                            // 关闭后的操作
+                        });
+                    }
+
+                }
+            });
+        })
+        ;
     </script>
 @endpush
-

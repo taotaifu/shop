@@ -10,7 +10,9 @@ class PermissionController extends Controller
 {
     public function index()
     {
+        //dd (1);
         admin_has_permission('Admin-permission');
+        //dd (1);
         $modules=Module::all();
 
         return view( 'admin.permission.index' , compact( 'modules' ) );

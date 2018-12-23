@@ -12,7 +12,7 @@ class AdminTableSeeder extends Seeder
     public function run()
     {
         Admin::firstOrnew([
-           'username'=>'729589198@qq.com'
+           'username'=>'admin',
         ])->fill(['password'=>bcrypt ('admin')])->save();
     }
 }

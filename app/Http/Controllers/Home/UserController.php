@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Home;
 
 use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\UserRequest;
 use App\Notifications\ResetPasswordNotification;
 use App\User;
 use Illuminate\Http\Request;
@@ -62,9 +63,9 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show(Request $request,User $user)
     {
-        //
+
     }
 
     /**
@@ -85,9 +86,11 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(UserRequest $request, User $user)
     {
-        //
+        $user->update($request->all ());
+
+        return back ()->with ('success','操作成功');
     }
 
     /**

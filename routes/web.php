@@ -54,8 +54,12 @@ Route::group ( [ 'prefix' => 'home' , 'namespace' => 'Home' , 'as' => 'home.' ] 
     Route::post('check_order_status','PayController@checkOrderStatus')->name('check_order_status');
     //qq 回调地址
     Route::get('qq_back','IndexController@qqBack')->name('aa_back');
-    //个人中心
+    //个人订单中心
     Route::resource('personal_center','PersonalCenterController');
+    //个人资料中心
+    Route::resource('material_center','MaterialCenterController');
+    //搜索配置
+    Route::get( 'search' , 'IndexController@search' )->name( 'search' );
 
 } );
 
@@ -65,7 +69,7 @@ Route::group ( [ 'prefix' => 'admin' , 'namespace' => 'Admin' , 'as' => 'admin.'
     Route::get ( '/login' , 'LoginController@index' )->name ( 'login' );
     Route::post ( '/login' , 'LoginController@login' )->name ( 'login' );
 } );
-//后台不需要登录拦截
+//后台需要登录拦截
 Route::group ( [ 'middleware' => [ 'admin.auth' ] , 'prefix' => 'admin' , 'namespace' => 'Admin' , 'as' => 'admin.' ] , function () {
     //退出
     Route::get ( '/logout' , 'LoginController@logout' )->name ( 'logout' );
@@ -75,6 +79,21 @@ Route::group ( [ 'middleware' => [ 'admin.auth' ] , 'prefix' => 'admin' , 'names
     Route::resource ( 'good' , 'GoodController' );
     //栏目管理
     Route::resource ( 'category' , 'CategoryController' );
+    //后台商品详情
+    Route::resource('settlement','SettlementController');
+    //管理员管理
+    Route::resource( 'admin' , 'AdminController' );
+    Route::get( 'admin_set_role_create/{admin}' , 'AdminController@adminSetRoleCreate' )->name( 'admin_set_role_create' );
+    Route::post( 'admin_set_role_store/{admin}' , 'AdminController@adminSetRoleStore' )->name( 'admin_set_role_store' );
+    //角色管理
+    Route::resource( 'role' , 'RoleController' );
+    //给角色设置权限
+    Route::post( 'set_role_permission/{role}' , 'RoleController@setRolePermission' )->name( 'set_role_permission' );
+    //权限管理
+    Route::get( 'permission' , 'PermissionController@index' )->name( 'permission' );
+    //清除权限缓存
+    Route::get( 'forget_permission_cache' , 'PermissionController@forgetPermissionCache' )->name( 'forget_permission_cache' );
+
 
 } );
 //工具类
@@ -91,6 +110,7 @@ Route::group ( [ 'middleware' => [ 'admin.auth' ] , 'prefix' => 'admin' , 'names
     //后台配置路由
     Route::get ( 'config/edit/{name}' , 'ConfigController@edit' )->name ( 'config.edit' );
     Route::post ( 'config/update/{name}' , 'ConfigController@update' )->name ( 'config.update' );
+
 } );
 
 //轮播图管理

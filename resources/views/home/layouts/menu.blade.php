@@ -22,7 +22,16 @@
     <script type="text/javascript" src="{{asset ('org/home')}}/js/chengs/city-picker.data.js"></script>
     <script type="text/javascript" src="{{asset ('org/home')}}/js/chengs/city-picker.js"></script>
     <script type="text/javascript" src="{{asset ('org/home')}}/js/chengs/main.js"></script>
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <script>
+        $(function () {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+        })
+    </script>
 
 </head>
 <body>
@@ -56,15 +65,15 @@
                     </div>
                     <div class="dengl_hou_xial_k">
                         <div class="zuid_xiao_toux">
-                            <a href="#"><img src="{{asset ('org/home')}}/images/toux.png"></a>
+                            <a href="#"><img src={{auth()->user()->icon}}></a>
                         </div>
                         <div class="huiy_dengj">
                             <a class="tuic_" href="{{route('home.logout')}}">退出</a>
                         </div>
                         <div class="toub_zil_daoh">
-                            <a href="">待处理订单</a>
+                            <a href="{{route ('home.personal_center.index')}}">待处理订单</a>
                             <a href="#">我的收藏</a>
-                            <a href="{{route ('home.personal_center.index')}}">个人资料</a>
+                            <a href="{{route('home.material_center.index')}}">个人资料</a>
                             <a href="{{route ('admin.index')}}">我的后台</a>
                         </div>
                     </div>
@@ -84,18 +93,18 @@
     <div class="beij_center">
         <div class="wode_tongc_logo">
             <a class="tongc_logo" href="#"></a>
-            <a class="fanh_shouy" href="" target="_blank">返回首页</a>
+            <a class="fanh_shouy" href="{{route ('home.home')}}" target="_blank">返回首页</a>
         </div>
         <div class="navitems">
             <ul>
-                <li><a href="ger_zhongx.html"><span>首页</span> </a></li>
+                <li><a href="{{route ('home.home')}}"><span>首页</span> </a></li>
                 <li>
                     <div class="zhangh_dl">
                         <div class="zhangh_dt"><span>账号设置</span><i>◇</i></div>
                         <div class="zhangh_dd">
-                            <a href="ger_xinx.html">个人信息</a>
-                            <a href="zhangh_anq.html">账户安全</a>
-                            <a href="shouh_diz.html">收货地址</a>
+                            <a href="{{route ('home.material_center.index')}}">个人信息</a>
+                            <a href="{{route ('home.personal_center.index')}}">订单详情</a>
+                            <a href="{{route ('home.address.index')}}">收货地址</a>
                         </div>
                     </div>
                 </li>
@@ -108,54 +117,38 @@
                     <button class="button1"></button>
                 </div>
             </div>
+            <?php
+            $_carts = \App\Models\Cart::where ( 'user_id' , auth ()->id () )->get ();
+            ?>
             <div id="settleup_2014">
-                <div class="cw_icon">
-                    <a href="gouw_che.html"><span>购物车<em>3</em>件</span></a>
-                    <i class="ci-right ">
-                        <s class="jt">◇</s>
-                    </i>
-                </div>
-                <div class="dorpdown-layer">
-                    <div class="smt"><h4 class="fl">最新加入的商品</h4></div>
-                    <ul>
-                        <li class="meiyou">
-                            <div class="gouwc_tup">
-                                <a href="#"><img src="{{asset ('org/home')}}/images/lieb_tupi3.jpg"></a>
-                            </div>
-                            <div class="gouwc_biaot">
-                                <a href="#">探路者TOREAD 情侣款男士三合一套绒冲锋衣 TAWB91603 黑色 </a>
-                            </div>
-                            <div class="gouwc_shanc">
-                                <span>￥50.00</span>
-                                <a href="#">删除</a>
-                            </div>
-                        </li>
-                        <li class="meiyou">
-                            <div class="gouwc_tup">
-                                <a href="#"><img src="{{asset ('org/home')}}/images/lieb_tupi1.jpg"></a>
-                            </div>
-                            <div class="gouwc_biaot">
-                                <a href="#">探路者TOREAD 情侣款男士三合一套绒冲锋衣 TAWB91603 黑色 </a>
-                            </div>
-                            <div class="gouwc_shanc">
-                                <span>￥50.00</span>
-                                <a href="#">删除</a>
-                            </div>
-                        </li>
-                        <li class="meiyou">
-                            <div class="gouwc_tup">
-                                <a href="#"><img src="{{asset ('org/home')}}/images/lieb_tupi2.jpg"></a>
-                            </div>
-                            <div class="gouwc_biaot">
-                                <a href="#">探路者TOREAD 情侣款男士三合一套绒冲锋衣 TAWB91603 黑色 </a>
-                            </div>
-                            <div class="gouwc_shanc">
-                                <span>￥50.00</span>
-                                <a href="#">删除</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+                    <div class="cw_icon">
+                        <a href="gouw_che.html"><span>购物车<em>{{ $_carts->count()}}</em>件</span></a>
+                        <i class="ci-right">
+                            <s class="jt">◇</s>
+                        </i>
+                    </div>
+
+                    <div class="dorpdown-layer">
+                        <div class="smt"><h4 class="fl">最新加入的商品</h4></div>
+                        @foreach($_carts  as $value)
+                        <ul>
+                            <li class="meiyou">
+                                <div class="gouwc_tup">
+                                    <a href="#"><img src="{{$value['pic']}}"></a>
+                                </div>
+                                <div class="gouwc_biaot">
+                                    <a href="#">{{$value['title']}}</a>
+                                    <br>
+                                    <a href="#">{{$value['spec']}} </a>
+                                </div>
+                                <div class="gouwc_shanc">
+                                    <span>￥{{$value['price']}}</span>
+                                    <a href="#">删除</a>
+                                </div>
+                            </li>
+                            @endforeach
+                        </ul>
+                    </div>
             </div>
         </div>
     </div>
@@ -170,12 +163,12 @@
                     <div class="toux_kuang">
                         <div class="userImage">
                             <div class="myGome_userPhoto">
-                                <img src="{{asset ('org/home')}}/images/toux.png">
+                                <img src="{{auth()->user()->icon}}">
                                 <a class="edit_photo_bitton" href="profile" target="_blank">编辑</a>
                             </div>
                         </div>
                         <div class="user_name_Level">
-                            <p class="user_name" title="山的那边是海">{{auth ()->user ()->name}}</p>
+                            <p class="user_name">{{auth ()->user ()->name}}</p>
                             <p class="userLevel">会员：<span class="levelId icon_plus_nickname"></span></p>
                         </div>
                     </div>
@@ -254,16 +247,16 @@
                     <div class="diy_top">
                         <ul>
                             <h3>账户设置</h3>
-                            <li><a href="#">基本资料</a></li>
+                            <li><a href="{{route ('home.material_center.index')}}">基本资料</a></li>
                             <li><a href="#">账户安全</a></li>
-                            <li><a href="#">收货地址</a></li>
+                            <li><a href="{{route ('home.address.index')}}">收货地址</a></li>
                         </ul>
                     </div>
                 </div>
             </div>
             <!--右边内容-->
-            @yield('content')
-            <!--右边内容结束-->
+        @yield('content')
+        <!--右边内容结束-->
         </div>
     </div>
 </div>

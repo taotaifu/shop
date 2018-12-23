@@ -12,7 +12,7 @@
                     <a href="#" class="dropdown-item"><i class="ti-wallet"></i> My Balance</a>
                     <a href="#" class="dropdown-item"><i class="ti-email"></i> Inbox</a>
                     <div class="dropdown-divider"></div> <a href="#" class="dropdown-item"><i class="ti-settings"></i> Account Setting</a>
-                    <div class="dropdown-divider"></div> <a href="login.html" class="dropdown-item"><i class="fa fa-power-off"></i> Logout</a>
+                    <div class="dropdown-divider"></div> <a href="{{route ('admin.logout')}}" class="dropdown-item"><i class="fa fa-power-off"></i> Logout</a>
                 </div>
             </div>
         </div>
@@ -21,35 +21,63 @@
         <nav class="sidebar-nav active">
             <ul id="sidebarnav" class="in">
                 <li class="nav-small-cap">后台管理</li>
+                {{--@if(auth('admin')->user()->hasAnyPermission(['Admin-category', 'Admin-good']))--}}
                 <li class="active">
                     <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="true"><i class="mdi mdi-gauge"></i><span class="hide-menu">商城系统 </span></a>
                     <ul aria-expanded="true" class="collapse">
+                        {{--@if(auth('admin')->user()->hasPermissionTo('Admin-category') || auth('admin')->user()->hasRole('category'))--}}
                         <li><a href="{{route ('admin.category.index')}}">栏目管理</a></li>
+                        {{--@endif--}}
+                        {{--@if(auth('admin')->user()->hasPermissionTo('Admin-good') || auth('admin')->user()->hasRole('good'))--}}
                         <li><a href="{{route ('admin.good.index')}}">商品管理</a></li>
+                         {{--@endif--}}
+                        <li><a href="{{route ('admin.settlement.index')}}">订单管理</a></li>
                     </ul>
                 </li>
+                {{--@endif--}}
+                {{--@if(auth('admin')->user()->hasAnyPermission(['Admin-config-website', 'Admin-config-upload','Admin-config-email','Admin-config-search']))--}}
                 <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-laptop-windows"></i><span class="hide-menu">后台配置</span></a>
                     <ul aria-expanded="false" class="collapse">
+                        {{--@if(auth('admin')->user()->hasPermissionTo('Admin-config-website'))--}}
                         <li><a href="{{route ('admin.config.edit',['name'=>'base'])}}">基本配置</a></li>
+                        {{--@endif--}}
+                        {{--@if(auth('admin')->user()->hasPermissionTo('Admin-config-upload'))--}}
                         <li><a href="{{route ('admin.config.edit',['name'=>'upload'])}}">上传配置</a></li>
+                            {{--@endif--}}
+                            {{--@if(auth('admin')->user()->hasPermissionTo('Admin-config-email'))--}}
                         <li><a href="{{route ('admin.config.edit',['name'=>'mail'])}}">邮件配置</a></li>
+                            {{--@endif--}}
+                            {{--@if(auth('admin')->user()->hasPermissionTo('Admin-config-search'))--}}
                         <li><a href="{{route ('admin.config.edit',['name'=>'search'])}}">搜索配置</a></li>
+                            {{--@endif--}}
+                            {{--@if(auth('admin')->user()->hasPermissionTo('Admin-config-wechat'))--}}
                         <li><a href="{{route ('admin.config.edit',['name'=>'wechat'])}}">微信配置</a></li>
+                            {{--@endif--}}
                         <li><a href="{{route ('admin.config.edit',['name'=>'code'])}}">验证码配置</a></li>
                     </ul>
                 </li>
+                {{--@endif--}}
+
                 <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-bullseye"></i><span class="hide-menu">轮播图管理</span></a>
                     <ul aria-expanded="false" class="collapse">
                         <li><a href="{{route ('shower.figure.index')}}">轮播图配置</a></li>
                     </ul>
                 </li>
-                <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-email"></i><span class="hide-menu">Inbox</span></a>
+                {{--@if(auth('admin')->user()->hasAnyPermission(['Admin-admin', 'Admin-role','Admin-permission']))--}}
+                <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-email"></i><span class="hide-menu">权限设置管理</span></a>
                     <ul aria-expanded="false" class="collapse">
-                        <li><a href="app-email.html">Mailbox</a></li>
-                        <li><a href="app-email-detail.html">Mailbox Detail</a></li>
-                        <li><a href="app-compose.html">Compose Mail</a></li>
+                        {{--@if(auth('admin')->user()->hasPermissionTo('Admin-admin'))--}}
+                        <li><a href="{{route('admin.admin.index')}}">用户管理</a></li>
+                        {{--@endif--}}
+                        {{--@if(auth('admin')->user()->hasPermissionTo('Admin-role'))--}}
+                        <li><a href="{{route('admin.role.index')}}">角色管理</a></li>
+                            {{--@endif--}}
+                            {{--@if(auth('admin')->user()->hasPermissionTo('Admin-permission'))--}}
+                        <li><a href="{{route ('admin.permission')}}">权限管理</a></li>
+                            {{--@endif--}}
                     </ul>
                 </li>
+                {{--@endif--}}
                 <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-chart-bubble"></i><span class="hide-menu">Ui Elements</span></a>
                     <ul aria-expanded="false" class="collapse">
                         <li><a href="ui-cards.html">Cards</a></li>
@@ -232,7 +260,7 @@
         <!-- item-->
         <a href="" class="link" data-toggle="tooltip" title="Email"><i class="mdi mdi-gmail"></i></a>
         <!-- item-->
-        <a href="" class="link" data-toggle="tooltip" title="Logout"><i class="mdi mdi-power"></i></a>
+        <a href="{{route ('admin.logout')}}" class="link" data-toggle="tooltip" title="Logout"><i class="mdi mdi-power"></i></a>
     </div>
     <!-- End Bottom points-->
 </aside>
